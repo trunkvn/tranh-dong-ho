@@ -1,26 +1,3346 @@
 @import "tailwindcss";
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --red-950: #2a0307;
+  --red-900: #430509;
+  --red-800: #62080f;
+  --red-700: #850c17;
+  --red-600: #aa101e;
+  --red-500: #cf2230;
+  --gold-400: #e3a94a;
+  --gold-300: #f0be6b;
+  --gold-200: #f7d9a0;
+  --cream: #f7efe0;
+  --cream-dim: #dccdb4;
+  --cream-faint: rgba(247, 239, 224, 0.66);
+  --ink: #1b0c0e;
+  --diep: #f4ebd7;
+  --ink-soft: rgba(27, 12, 14, 0.86);
+  --line: rgba(240, 190, 107, 0.28);
+  --display: var(--font-archivo), "Arial Black", Impact, sans-serif;
+  --body: var(--font-be-vietnam), system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-archivo), "Arial Black", Impact, sans-serif;
+  --font-sans: var(--font-be-vietnam), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--red-950);
+  color: var(--cream);
+  font-family: var(--body);
+  font-size: clamp(0.96rem, 0.45vw + 0.88rem, 1.08rem);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+main,
+section {
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+blockquote {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-300);
+  outline-offset: 3px;
+}
+
+/* ───────── the two surfaces ───────── */
+
+/* the wall: lacquer red with a faint plaster grain */
+.wall {
+  color: var(--cream);
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(207, 34, 48, 0.28), transparent 60%),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0 2px, transparent 2px 9px),
+    var(--red-900);
+}
+
+/* giấy điệp: warm paper, a sparkle of shell, and the streaks of a pine-needle brush */
+.diep {
+  color: var(--ink);
+  background-color: var(--diep);
+  background-image:
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.95) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 72% 62%, rgba(255, 255, 255, 0.85) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 44% 86%, rgba(255, 247, 224, 0.95) 0 1.3px, transparent 2.1px),
+    repeating-linear-gradient(0deg, rgba(133, 12, 23, 0.028) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(0deg, rgba(133, 12, 23, 0.02) 0 2px, transparent 2px 23px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.035), transparent 7%, transparent 93%, rgba(0, 0, 0, 0.05));
+  background-size: 84px 84px, 131px 131px, 67px 67px, auto, auto, auto;
+}
+
+/* ───────── shared pieces ───────── */
+
+.disp {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  /* tone marks need room above the capitals */
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+/* a heading a little out of register: a second colour peeks out from under the first */
+.mis {
+  text-shadow: 3px 3px 0 var(--red-500);
+}
+
+.disp em {
+  font-style: normal;
+  color: var(--red-600);
+}
+
+/* strips of paper tape that hold a sheet to the wall */
+.tape {
+  position: absolute;
+  top: -13px;
+  width: 88px;
+  height: 26px;
+  background: rgba(240, 190, 107, 0.62);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+  z-index: 3;
+}
+
+.tape.a {
+  left: 28px;
+  rotate: -6deg;
+}
+
+.tape.b {
+  right: 28px;
+  rotate: 5deg;
+}
+
+/* a print: a sheet of paper in a heavy black line */
+.print {
+  position: relative;
+  border: 3px solid var(--ink);
+  box-shadow: 0 34px 50px -26px rgba(0, 0, 0, 0.75);
+}
+
+.print svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* secondary-language line under an English one */
+.vi {
+  display: block;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+/* ───────── language switch: EN | VI, top right ───────── */
+
+.langswitch {
+  position: fixed;
+  top: 1rem;
+  right: 14px;
+  z-index: 55;
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  background: var(--red-900);
+  box-shadow: 3px 3px 0 var(--red-600);
+}
+
+.langswitch a,
+.langswitch span {
+  display: block;
+  min-width: 2.7rem;
+  padding: 0.38rem 0.7rem 0.42rem;
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-decoration: none;
+}
+
+.langswitch a {
+  color: var(--cream-dim);
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.langswitch a:hover {
+  background: rgba(240, 190, 107, 0.18);
+  color: var(--cream);
+}
+
+.langswitch span {
+  background: var(--gold-300);
+  color: var(--ink);
+}
+
+/* ───────── the brand and the seals ───────── */
+
+.brand {
+  position: fixed;
+  left: 1.2rem;
+  top: 1rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: var(--cream);
+}
+
+.brand b {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  aspect-ratio: 1;
+  background: var(--red-600);
+  color: var(--cream);
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1rem;
+  outline: 2px solid var(--red-600);
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 2px var(--red-600), inset 0 0 0 3px rgba(247, 239, 224, 0.75);
+  rotate: -4deg;
+}
+
+.brand > span {
+  padding: 0.3rem 0.6rem 0.35rem;
+  background: rgba(42, 3, 7, 0.82);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.brand > span small {
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  text-transform: none;
+  opacity: 0.8;
+}
+
+.seals {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 50;
+  display: grid;
+  gap: 8px;
+}
+
+.seals a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: var(--red-600);
+  color: var(--cream);
+  text-decoration: none;
+  outline: 2px solid var(--red-600);
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 2px var(--red-600), inset 0 0 0 3px rgba(247, 239, 224, 0.7);
+  transition:
+    background 0.2s,
+    color 0.2s,
+    translate 0.2s;
+}
+
+.seals a:nth-child(odd) {
+  rotate: -2deg;
+}
+
+.seals a:nth-child(even) {
+  rotate: 2deg;
+}
+
+.seals i {
+  font-style: normal;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 0.8rem;
+}
+
+.seals em {
+  position: absolute;
+  right: calc(100% + 12px);
+  padding: 0.25rem 0.7rem;
+  border: 2px solid var(--ink);
+  background: var(--gold-300);
+  color: var(--ink);
+  font-style: normal;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  translate: 8px 0;
+  pointer-events: none;
+  transition:
+    opacity 0.2s,
+    translate 0.2s;
+}
+
+.seals a:hover em,
+.seals a:focus-visible em,
+.seals a.on em {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.seals a.on {
+  background: var(--gold-300);
+  color: var(--red-700);
+  translate: -5px 0;
+  box-shadow: inset 0 0 0 2px var(--gold-300), inset 0 0 0 3px var(--red-700);
+}
+
+/* ───────── 01 · hero ───────── */
+
+.hero {
+  min-height: 100svh;
+  padding: 5.4rem 0 3.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  overflow: hidden;
+}
+.hero-wall {
+  position: relative;
+  width: min(1240px, 100% - 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 580px) minmax(0, 1fr);
+  align-items: center;
+}
+
+.print.side {
+  width: min(310px, 100%);
+}
+
+.print.side.l {
+  justify-self: end;
+  margin-right: -48px;
+  rotate: -5deg;
+  z-index: 1;
+}
+
+.print.side.r {
+  justify-self: start;
+  margin-left: -48px;
+  rotate: 4deg;
+  z-index: 1;
+}
+
+/* keep the captions of the two side prints clear of the sheet that overlaps them */
+.print.side.l figcaption {
+  padding-right: 3.4rem;
+}
+
+.print.side.r figcaption {
+  padding-left: 3.4rem;
+}
+
+/* the printed title strip under a picture */
+.print.side figcaption {
+  padding: 0.55rem 0.9rem 0.65rem;
+  border-top: 2px solid var(--ink);
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 900;
+  font-size: 0.78rem;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.print.side figcaption .vi {
+  margin-top: 0.1rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.print.main {
+  z-index: 2;
+  padding: clamp(1.4rem, 3vw, 2.2rem) clamp(1.4rem, 3vw, 2.4rem) 1.4rem;
+  outline: 1px solid var(--ink);
+  outline-offset: -12px;
+  rotate: 0.6deg;
+}
+
+.cue i {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--gold-300);
+  font-style: normal;
+  line-height: 0;
+  /* a hard offset shadow, like the buttons and seals */
+  box-shadow: 2px 2px 0 var(--red-600);
+  transition: background 0.2s;
+}
+
+.cue > span {
+  text-wrap: balance;
+}
+
+.cue:hover i {
+  background: var(--red-700);
+}
+
+.cue i svg {
+  animation: nudge 2.2s ease-in-out infinite;
+}
+
+.cue i svg {
+  display: block;
+}
+
+@keyframes nudge {
+  50% {
+    translate: 0 3px;
+  }
+}
+/* ───────── shared section furniture ───────── */
+
+.wrap {
+  width: min(1240px, 100% - 3rem);
+  margin-inline: auto;
+}
+
+section.diep {
+  /* a ragged top edge, as if the sheet were torn off a larger one */
+  clip-path: polygon(0 10px, 6% 0, 13% 9px, 21% 2px, 30% 10px, 39% 1px, 48% 9px, 58% 0, 67% 8px, 76% 1px, 86% 10px, 94% 2px, 100% 8px, 100% 100%, 0 100%);
+  padding-block: calc(clamp(4.5rem, 9vw, 7.5rem) + 10px) clamp(4.5rem, 9vw, 7.5rem);
+}
+
+.eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--red-600);
+}
+
+.eyebrow span {
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  opacity: 0.8;
+}
+
+/* a section heading: a square seal with the number, then the title */
+.dh {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.dh h2 {
+  margin-top: 0.5rem;
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+}
+
+.seal {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: clamp(3.4rem, 6vw, 4.6rem);
+  aspect-ratio: 1;
+  background: var(--red-600);
+  color: var(--cream);
+  font-family: var(--display);
+  font-variation-settings: "wdth" 100;
+  font-weight: 900;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  outline: 2px solid var(--red-600);
+  outline-offset: 3px;
+  box-shadow: inset 0 0 0 3px var(--red-600), inset 0 0 0 4px rgba(247, 239, 224, 0.75);
+  rotate: -3deg;
+}
+
+/* ───────── 02 · giấy điệp ───────── */
+
+.why-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.35fr);
+  gap: 2.4rem clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.sheetwrap {
+  position: sticky;
+  top: 5rem;
+  padding: 1rem;
+}
+
+/* where the glint is: set by the pointer, or driven by the slow drift below */
+@property --mx {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 62%;
+}
+
+@property --my {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 38%;
+}
+
+.shimmer {
+  --mx: 62%;
+  --my: 38%;
+  --edge: polygon(47% 0, 51% 6%, 46% 14%, 50% 23%, 45% 31%, 49% 40%, 46% 49%, 51% 58%, 47% 67%, 50% 76%, 45% 85%, 49% 93%, 47% 100%, 100% 100%, 100% 0);
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border: 3px solid var(--ink);
+  outline: 1px solid var(--ink);
+  outline-offset: -10px;
+  rotate: -1.5deg;
+  box-shadow: 0 30px 40px -24px rgba(27, 12, 14, 0.6);
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: pan-y;
+  background: #d9c9a8;
+}
+
+/* left half: plain dó, matte, with its long fibres showing */
+.paper-plain {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(93deg, rgba(110, 85, 50, 0.1) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(81deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 13px),
+    radial-gradient(circle at 25% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
+    #d8c7a4;
+}
+
+/* right half: the same sheet after the điệp coat, with a ragged brushed edge */
+.paper-coated {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--edge);
+  background-image:
+    radial-gradient(60% 40% at 78% 22%, rgba(190, 218, 255, 0.4), transparent 70%),
+    radial-gradient(55% 40% at 70% 78%, rgba(255, 205, 225, 0.38), transparent 70%),
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.95) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 72% 62%, rgba(255, 255, 255, 0.85) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 44% 86%, rgba(255, 247, 224, 0.95) 0 1.3px, transparent 2.1px),
+    repeating-linear-gradient(0deg, rgba(133, 12, 23, 0.04) 0 1px, transparent 1px 7px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05), transparent 12%);
+  background-size: auto, auto, 38px 38px, 53px 53px, 29px 29px, auto, auto;
+  background-color: #f6eedb;
+}
+
+.motif {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* the glint: bright shell flecks that show near the pointer, on the coated half only */
+.glint {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--edge);
+  pointer-events: none;
+}
+
+.glint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #fff 0 1.3px, transparent 2.2px);
+  background-size: 13px 13px;
+  -webkit-mask-image: radial-gradient(circle at var(--mx) var(--my), #000, transparent 48%);
+  mask-image: radial-gradient(circle at var(--mx) var(--my), #000, transparent 48%);
+}
+
+.glint::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 40%);
+  mix-blend-mode: soft-light;
+}
+
+/* while the sheet is on screen and nobody is touching it, the glint wanders on its own */
+.shimmer.live:not(.touched) {
+  animation: sweep 14s ease-in-out infinite;
+}
+
+@keyframes sweep {
+  0%, 100% { --mx: 62%; --my: 18%; }
+  25% { --mx: 90%; --my: 48%; }
+  50% { --mx: 58%; --my: 80%; }
+  75% { --mx: 76%; --my: 52%; }
+}
+
+/* labels for the two halves */
+.half-tag {
+  position: absolute;
+  top: 1.1rem;
+  max-width: 44%;
+  padding: 0.3rem 0.55rem 0.4rem;
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--red-600);
+}
+
+.half-tag small {
+  display: block;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+
+.plain-tag {
+  left: 1.1rem;
+}
+
+.coated-tag {
+  right: 1.1rem;
+  text-align: right;
+}
+
+.shimmer-hint {
+  position: absolute;
+  inset: auto 1rem 1.2rem;
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-shadow: 0 0 6px var(--diep), 0 0 2px var(--diep);
+}
+
+.hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .hint-hover {
+    display: none;
+  }
+
+  .hint-touch {
+    display: inline;
+  }
+}
+
+/* the five pigments */
+.pigments {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.7rem 1rem;
+}
+
+.pigments li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0;
+  border: 0;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.pigments li > i {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--ink);
+  background: var(--sw);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* beats `.why-list b` (the big red chapter numbers) */
+.why-list .pigments b {
+  display: block;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.pigments em {
+  font-style: italic;
+}
+
+.why-list {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+}
+
+.why-list > li {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 0 1rem;
+  padding-block: 1.2rem;
+  border-top: 2px solid var(--ink);
+}
+
+.why-list b {
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--red-600);
+}
+
+.why-list h3 {
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.why-list p {
+  margin-top: 0.3rem;
+  max-width: 34rem;
+  color: var(--ink-soft);
+}
+
+.equation {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.7rem 0.9rem;
+  margin-top: 1.8rem;
+  padding: 1.2rem;
+  border: 2px solid var(--ink);
+  background: rgba(244, 235, 215, 0.6);
+}
+
+.equation-part {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.equation-part.result {
+  flex-basis: 100%;
+}
+
+.equation-part > i {
+  font-style: normal;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.6rem;
+  color: var(--red-600);
+}
+
+/* a tile cut like a small woodblock */
+.tile {
+  padding: 0.5rem 0.8rem 0.65rem;
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  text-align: center;
+  box-shadow: 3px 3px 0 var(--red-600);
+}
+
+.tile small {
+  display: block;
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.tile b {
+  display: block;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  line-height: 1.25;
+}
+
+.tile.gold {
+  background: #f2b631;
+}
+
+/* ───────── red-wall sections (everything after the hero) ───────── */
+
+section.wall:not(.hero) {
+  padding-block: clamp(4.5rem, 9vw, 7.5rem);
+}
+
+.wall:not(.hero) .eyebrow {
+  color: var(--gold-300);
+}
+
+.wall:not(.hero) .disp em {
+  color: var(--gold-300);
+}
+
+.lede {
+  max-width: 42rem;
+  margin-top: 1.2rem;
+  color: var(--ink-soft);
+}
+
+.wall .lede {
+  color: var(--cream-dim);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--gold-300);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--red-600);
+  transition:
+    translate 0.15s,
+    box-shadow 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  translate: 1px 1px;
+  box-shadow: 2px 2px 0 var(--red-600);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ───────── 03 · the press ───────── */
+
+.table {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr) 300px;
+  gap: 1.2rem;
+  margin-top: 2.4rem;
+  align-items: start;
+}
+
+.tray,
+.panel {
+  padding: 1.1rem;
+  border: 2px solid var(--gold-300);
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.12) 0 2px, transparent 2px 11px),
+    linear-gradient(var(--red-800), var(--red-900));
+}
+
+.tlabel {
+  margin-bottom: 0.7rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+.tlabel b {
+  font-family: var(--display);
+  font-size: 0.95rem;
+  color: var(--cream);
+}
+
+.blocks {
+  display: grid;
+  gap: 0.7rem;
+}
+
+/* a woodblock: dark wood, carved lines, the colour it prints in */
+.blk {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.6rem 1.7rem 0.6rem 0.6rem;
+  border: 2px solid var(--ink);
+  background:
+    repeating-linear-gradient(100deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 6px),
+    linear-gradient(#8a5a36, #6c4326);
+  color: var(--cream);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #3a2113;
+  transition:
+    translate 0.15s,
+    box-shadow 0.15s,
+    opacity 0.2s;
+}
+
+.blk:disabled {
+  cursor: default;
+}
+
+.blk:disabled:not(.done) {
+  opacity: 0.55;
+}
+
+.blk .face {
+  position: relative;
+  width: 2.6rem;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  background: #a97a52;
+}
+
+/* the carving: each block gets its own pattern */
+.blk .face::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background: var(--carve);
+}
+
+.blk b {
+  display: block;
+  font-family: var(--display);
+  font-variation-settings: "wdth" 110;
+  font-weight: 900;
+  font-size: 0.78rem;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.blk small {
+  display: block;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
+}
+
+.blk .dot {
+  position: absolute;
+  right: 0.6rem;
+  top: 0.6rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--pig);
+}
+
+.blk.done {
+  opacity: 0.55;
+  box-shadow: 0 1px 0 #3a2113;
+  translate: 0 3px;
+}
+
+.blk:hover:not(:disabled) {
+  translate: 0 -2px;
+}
+
+.reset {
+  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: none;
+  color: var(--gold-200);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.bench {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 1.6rem 1rem;
+  border: 2px solid var(--gold-300);
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0 1px, transparent 1px 9px),
+    linear-gradient(#5b2314, #3d130a);
+}
+
+.sheetframe {
+  position: relative;
+  width: min(430px, 100%);
+  aspect-ratio: 440 / 520;
+  border: 3px solid var(--ink);
+  box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.8);
+}
+
+.sheetframe svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* every block lands, then its ink shows */
+.layer {
+  opacity: 0;
+  transition:
+    opacity 0.3s 0.38s,
+    transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.layer.on {
+  opacity: 1;
+}
+
+.layer:not(.on) {
+  transition-delay: 0s;
+}
+
+/* the block coming down on the sheet */
+.flyblock {
+  position: absolute;
+  inset: 4%;
+  border: 3px solid var(--ink);
+  background:
+    repeating-linear-gradient(100deg, rgba(0, 0, 0, 0.2) 0 1px, transparent 1px 6px),
+    linear-gradient(#9a6a43, #6c4326);
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.flyblock::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  background: var(--pig);
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+}
+
+.flyblock.go {
+  animation: stamp 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes stamp {
+  0% {
+    opacity: 0;
+    translate: 0 -46%;
+    scale: 1.06;
+    rotate: -2deg;
+  }
+  30% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    rotate: 0deg;
+  }
+  72% {
+    opacity: 1;
+    scale: 0.985;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -30%;
+    scale: 1.03;
+  }
+}
+
+.steps {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.steps i {
+  width: 0.9rem;
+  height: 0.9rem;
+  rotate: 45deg;
+  border: 2px solid var(--gold-300);
+  background: transparent;
+  transition: background 0.3s;
+}
+
+.steps i.on {
+  background: var(--gold-300);
+}
+
+.panel h3 {
+  margin: 0.2rem 0 0.5rem;
+  font-size: 1.3rem;
+  color: var(--cream);
+}
+
+.panel p {
+  font-size: 0.92rem;
+  color: var(--cream-dim);
+}
+
+.panel .tlabel {
+  margin-bottom: 0.4rem;
+}
+
+.switch {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+  margin: 1.4rem 0;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+}
+
+.switch .knob {
+  position: relative;
+  width: 2.6rem;
+  height: 1.4rem;
+  border: 2px solid var(--gold-300);
+  border-radius: 999px;
+}
+
+.switch .knob::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--gold-300);
+  transition: translate 0.2s;
+}
+
+.switch input:checked + .knob {
+  background: rgba(240, 190, 107, 0.25);
+}
+
+.switch input:checked + .knob::after {
+  translate: 1.2rem 0;
+}
+
+.switch input:focus-visible + .knob {
+  outline: 2px solid var(--gold-300);
+  outline-offset: 3px;
+}
+
+.switch b {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.switch small {
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--cream-faint);
+}
+
+/* ───────── pronunciation guides: say “gah lwuhk” ───────── */
+
+.say {
+  font-family: var(--body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.86em;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  opacity: 0.85;
+}
+
+/* a guide on a line of its own, under a caption or a line of verse */
+.say-line {
+  display: block;
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+
+.print.side figcaption .say-line {
+  margin-top: 0.05rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  color: var(--ink-soft);
+}
+
+.h-say {
+  margin-top: 0.1rem;
+  color: var(--ink-soft);
+}
+
+.site-foot {
+  padding-block: 2rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--cream-dim);
+  border-top: 1px solid var(--line);
+}
+
+.site-foot p {
+  margin: 0;
+}
+
+.site-foot p + p {
+  margin-top: 0.3rem;
+}
+
+.site-foot .made-by {
+  margin-top: 1rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+/* the name, stamped like the chapter seals */
+.site-foot .made-by b {
+  display: inline-block;
+  margin-left: 0.3rem;
+  padding: 0.12rem 0.55rem 0.18rem;
+  background: var(--red-500);
+  color: var(--cream);
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  rotate: -2deg;
+  box-shadow: 2px 2px 0 var(--gold-300);
+}
+
+.site-foot a {
+  color: var(--gold-200);
+  text-underline-offset: 0.18em;
+}
+
+/* ───────── 04 · reading a print ───────── */
+
+.h-title-vi {
+  margin-top: 0.2rem;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+.wall .h-title-vi {
+  color: var(--cream-dim);
+}
+
+.inline-say {
+  display: inline;
+  font-size: 0.82rem;
+}
+
+.readbox {
+  margin-top: 2.2rem;
+}
+
+.scroll {
+  overflow-x: auto;
+  padding: 0.4rem 0.2rem 1rem;
+  scrollbar-width: thin;
+}
+
+.artwide {
+  display: block;
+  width: 100%;
+  min-width: 1100px;
+  height: auto;
+  border: 3px solid var(--ink);
+  background: var(--diep);
+  box-shadow: 0 30px 40px -26px rgba(27, 12, 14, 0.6);
+}
+
+.reader {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1.2rem;
+  align-items: center;
+  margin-top: 0.8rem;
+  padding: 1.2rem 1.4rem;
+  border: 3px solid var(--ink);
+  background: var(--cream);
+  box-shadow: 5px 5px 0 var(--red-600);
+}
+
+.arrow {
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 2px solid var(--ink);
+  background: var(--gold-300);
+  color: var(--ink);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--red-600);
+}
+
+.arrow:active {
+  translate: 1px 1px;
+  box-shadow: 1px 1px 0 var(--red-600);
+}
+
+.rno {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--red-600);
+}
+
+.rno b {
+  font-family: var(--display);
+  font-size: 1rem;
+}
+
+.rtext h3 {
+  margin: 0.1rem 0 0.3rem;
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+}
+
+.rtext p:last-child {
+  max-width: 46rem;
+  color: var(--ink-soft);
+}
+
+.rnote {
+  margin-top: 1.4rem;
+  max-width: 52rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* numbered hotspots on the print */
+.hot {
+  cursor: pointer;
+}
+
+.hot circle {
+  fill: var(--red-600);
+  stroke: var(--diep);
+  stroke-width: 4;
+}
+
+.hot text {
+  fill: var(--cream);
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 22px;
+  text-anchor: middle;
+}
+
+.hot.on circle,
+.hot:hover circle {
+  fill: #f2b631;
+  stroke: var(--ink);
+}
+
+.hot.on text,
+.hot:hover text {
+  fill: var(--ink);
+}
+
+.hot .ring {
+  fill: none;
+  stroke: var(--red-600);
+  stroke-width: 3;
+  stroke-dasharray: 4 6;
+  opacity: 0;
+}
+
+.hot.on .ring {
+  opacity: 1;
+}
+
+.hot:focus-visible {
+  outline: none;
+}
+
+.hot:focus-visible .ring {
+  opacity: 1;
+  stroke: var(--ink);
+}
+
+/* ───────── 05 · colour from nature ───────── */
+
+.mixbox {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+  gap: 2rem clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  margin-top: 2.2rem;
+}
+
+.pg {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  gap: 0 1.1rem;
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--line);
+  transition: background 0.25s;
+}
+
+.mixlist .pg:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
+
+.pg.spot {
+  background: rgba(240, 190, 107, 0.09);
+}
+
+.swatch {
+  width: 3.4rem;
+  aspect-ratio: 1;
+  border: 3px solid var(--ink);
+  background: var(--sw);
+  box-shadow: 3px 3px 0 var(--gold-300);
+  transition: background 0.35s;
+}
+
+.pg h3 {
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.pg h3 button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cream);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: underline dotted transparent;
+  text-underline-offset: 0.25em;
+}
+
+.pg h3 button:hover,
+.pg h3 button[aria-pressed="true"] {
+  color: var(--gold-300);
+  text-decoration-color: currentColor;
+}
+
+.pg .from {
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+}
+
+.opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.opt {
+  padding: 0.3rem 0.85rem;
+  border: 1.5px solid var(--gold-300);
+  border-radius: 999px;
+  background: none;
+  color: var(--cream);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.opt[aria-pressed="true"] {
+  background: var(--gold-300);
+  color: var(--ink);
+}
+
+.how {
+  margin-top: 0.5rem;
+  font-size: 0.86rem;
+  color: var(--cream-dim);
+}
+
+.how summary {
+  width: fit-content;
+  color: var(--gold-200);
+  cursor: pointer;
+  text-underline-offset: 0.2em;
+}
+
+.how p {
+  margin-top: 0.4rem;
+  max-width: 34rem;
+  line-height: 1.6;
+}
+
+.mixnote {
+  margin-top: 1.1rem;
+  max-width: 34rem;
+  font-size: 0.82rem;
+  color: var(--cream-faint);
+}
+
+.preview {
+  position: sticky;
+  top: 5rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+}
+
+.preview .sheetframe {
+  width: min(380px, 100%);
+  rotate: 1.2deg;
+}
+
+.pcap {
+  max-width: 24rem;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--cream-faint);
+}
+
+/* in the mixer every layer is already printed: fading a colour is instant, not a stamp */
+.mixbox .layer {
+  transition: opacity 0.25s;
+}
+
+.layer.on.dim {
+  opacity: 0.14;
+}
+
+/* ───────── 06 · what remains ───────── */
+
+.remain .lede {
+  margin-bottom: 2.4rem;
+}
+
+.thennow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 2rem clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 3px solid var(--ink);
+  background: var(--cream);
+  box-shadow: 6px 6px 0 var(--red-600);
+}
+
+/* one square per household */
+.dots {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  gap: clamp(3px, 0.5vw, 6px);
+}
+
+.dots i {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: opacity 0.7s ease;
+}
+
+.dots i.keep {
+  background: var(--red-600);
+  outline: 2px solid var(--gold-400);
+  outline-offset: 1px;
+}
+
+.dots[data-phase="final"] i:not(.keep) {
+  opacity: 0.12;
+}
+
+/* the starting state of the fade: nobody has left yet, and no transition runs on the way in */
+.dots[data-phase="full"] i {
+  opacity: 1;
+  transition: none;
+}
+
+.tn-stats {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.tn-stats p {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.tn-stats b {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.1;
+}
+
+.tn-now b {
+  color: var(--red-600);
+  text-shadow: 3px 3px 0 var(--ink);
+}
+
+.tn-stats span {
+  max-width: 24rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.tn-stats .tn-note {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.oldblocks {
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr);
+  gap: 1.6rem clamp(1.6rem, 4vw, 3rem);
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.blockart {
+  display: block;
+  width: min(300px, 100%);
+  justify-self: center;
+  rotate: -2deg;
+  filter: drop-shadow(0 18px 18px rgba(27, 12, 14, 0.4));
+}
+
+.oldblocks h3,
+.twocol h3 {
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  margin-bottom: 0.5rem;
+}
+
+.oldblocks p {
+  max-width: 34rem;
+  color: var(--ink-soft);
+}
+
+.events {
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.events li {
+  padding: 0.9rem 1rem 1rem;
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  box-shadow: 3px 3px 0 var(--red-600);
+}
+
+.events li.now {
+  background: #f2b631;
+}
+
+.events b {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  color: var(--red-700);
+}
+
+.events li.now b {
+  color: var(--ink);
+}
+
+.events p {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.twocol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem clamp(2rem, 5vw, 4rem);
+  margin-top: 3rem;
+}
+
+.twocol ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  list-style: disc;
+  display: grid;
+  gap: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.twocol li::marker {
+  color: var(--red-600);
+}
+
+/* ───────── 07 · the making ───────── */
+
+.makebox {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 2rem clamp(2rem, 6vw, 5rem);
+  align-items: start;
+  margin-top: 2.6rem;
+}
+
+.msteps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* a thread running down through the numbered seals */
+.msteps::before {
+  content: "";
+  position: absolute;
+  left: 1.2rem;
+  top: 1.2rem;
+  bottom: 1.2rem;
+  width: 2px;
+  background: var(--line);
+}
+
+.msteps li {
+  position: relative;
+  margin-bottom: 0.45rem;
+}
+
+.msteps li.phase {
+  margin: 1.1rem 0 0.6rem 3.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+.msteps li.phase:first-child {
+  margin-top: 0;
+}
+
+.msteps li button {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.35rem 0.8rem 0.35rem 0;
+  border: 0;
+  background: none;
+  color: var(--cream-dim);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.msteps li button:hover {
+  color: var(--cream);
+}
+
+.msteps li button span {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1.25;
+}
+
+/* the seal of each step, like the chapter seals at the edge of the page */
+.msteps .node {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  aspect-ratio: 1;
+  background: var(--red-900);
+  color: var(--cream-dim);
+  font-family: var(--display);
+  font-size: 0.85rem;
+  font-weight: 900;
+  outline: 2px solid var(--line);
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 2px var(--red-900);
+  transition:
+    background 0.25s,
+    color 0.25s,
+    outline-color 0.25s;
+}
+
+.msteps li.past .node {
+  background: var(--gold-400);
+  color: var(--ink);
+  outline-color: var(--gold-400);
+}
+
+.msteps li.past button {
+  color: var(--cream);
+}
+
+.msteps li.on .node {
+  background: var(--red-500);
+  color: var(--cream);
+  outline-color: var(--gold-300);
+  box-shadow: inset 0 0 0 2px var(--red-500), inset 0 0 0 3px rgba(247, 239, 224, 0.75);
+  rotate: -3deg;
+}
+
+/* the open step is a card: a sheet pasted on the wall */
+.msteps li.on {
+  padding: 0.75rem 0.9rem 1rem 0;
+  margin-block: 0.7rem;
+  background: var(--cream);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--red-600);
+}
+
+.msteps li.on button {
+  padding-left: 0.8rem;
+  color: var(--ink);
+}
+
+.msteps li.on button span {
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+}
+
+.msteps .stext {
+  max-width: 34rem;
+  margin: 0.2rem 0 0 4.3rem;
+  color: var(--ink-soft);
+}
+
+.mseason {
+  margin-top: 1.1rem;
+  font-size: 0.88rem;
+  color: var(--cream-dim);
+}
+
+.mseason span {
+  margin-right: 0.3rem;
+  color: var(--gold-300);
+}
+
+.mnav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--cream-dim);
+}
+
+.mnav .btn.ghost {
+  background: none;
+  color: var(--cream);
+  border-color: var(--cream);
+  box-shadow: 3px 3px 0 var(--red-500);
+}
+
+.mnav .btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  box-shadow: none;
+}
+
+.mpanel {
+  position: sticky;
+  top: 5rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+}
+
+.mpanel .sheetframe {
+  width: min(360px, 100%);
+  rotate: 1.2deg;
+  transition: background 0.5s;
+}
+
+/* before the điệp coat the sheet is plain dó: matte, a little darker */
+.mpanel .sheetframe.plain {
+  background:
+    repeating-linear-gradient(93deg, rgba(110, 85, 50, 0.1) 0 1px, transparent 1px 5px),
+    #d8c7a4;
+}
+
+.suns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.suns i {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--gold-300);
+  border-radius: 50%;
+  background: transparent;
+  transition:
+    background 0.4s,
+    box-shadow 0.4s;
+}
+
+.suns i.lit {
+  background: var(--gold-300);
+  box-shadow: 0 0 12px 2px rgba(240, 190, 107, 0.55);
+}
+
+.suncap {
+  font-size: 0.82rem;
+  color: var(--cream-dim);
+}
+
+.suncap b {
+  font-family: var(--display);
+  color: var(--cream);
+}
+
+/* ───────── 07 · animated step drawings ───────── */
+
+.mpanel .sheetframe {
+  overflow: visible;
+}
+
+.stepart {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* without motion the wash simply covers the sheet */
+.sa-wash {
+  opacity: 0.8;
+}
+
+/* ───────── 08 · closing ───────── */
+
+.end {
+  position: relative;
+  overflow: hidden;
+}
+
+section.wall.end {
+  padding-bottom: 0;
+}
+
+.end-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.end .eyebrow {
+  justify-content: center;
+}
+
+.endtitle {
+  margin-top: 1rem;
+  font-size: clamp(2.6rem, 8vw, 7rem);
+  line-height: 1.12;
+  color: var(--cream);
+}
+
+.endtitle span {
+  display: block;
+}
+
+.endtext {
+  max-width: 38rem;
+  margin-top: 1.6rem;
+  color: var(--cream-dim);
+}
+
+.endbtns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.8rem;
+}
+
+.endbtns .btn.ghost {
+  background: none;
+  color: var(--cream);
+  border-color: var(--cream);
+  box-shadow: 3px 3px 0 var(--red-500);
+}
+
+/* two prints peeking up from the bottom edge, half cut off */
+.endprints {
+  position: relative;
+  z-index: 1;
+  height: clamp(9rem, 17vw, 15rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-inline: clamp(1rem, 6vw, 6rem);
+  pointer-events: none;
+}
+
+.print.small {
+  width: clamp(150px, 20vw, 260px);
+}
+
+.print.small.l {
+  rotate: -6deg;
+}
+
+.print.small.r {
+  rotate: 5deg;
+}
+
+/* ───────── 05 · the print market ───────── */
+
+.mkgrid {
+  --gap: clamp(1.4rem, 3vw, 2.4rem);
+  list-style: none;
+  margin: 2.8rem 0 0;
+  padding: 0;
+  display: grid;
+  /* smaller prints, centred: the strings still run across the gaps */
+  grid-template-columns: repeat(3, minmax(0, 320px));
+  justify-content: center;
+  gap: 2.4rem var(--gap);
+}
+
+.mkcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.7rem;
+}
+
+/* the string the prints hang from: it runs across the gap to the next print */
+.mkcard::before {
+  content: "";
+  position: absolute;
+  top: 0.55rem;
+  left: calc(var(--gap) / -2);
+  right: calc(var(--gap) / -2);
+  height: 3px;
+  background: #b98d57;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+}
+
+.mkcard:nth-child(3n + 1)::before {
+  left: -4rem;
+}
+
+.mkcard:nth-child(3n)::before {
+  right: -4rem;
+}
+
+/* a wooden peg holding the print to the string */
+.peg {
+  position: absolute;
+  top: -0.05rem;
+  left: 50%;
+  z-index: 3;
+  width: 1rem;
+  height: 2.3rem;
+  translate: -50% 0;
+  border: 2px solid var(--ink);
+  border-radius: 3px 3px 5px 5px;
+  background: linear-gradient(90deg, #d9ac6e, #b98042);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.peg::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0.45rem;
+  width: 2px;
+  height: 0.9rem;
+  translate: -50% 0;
+  background: rgba(27, 12, 14, 0.55);
+}
+
+/* every print sits on a mat of the same size, so the captions line up */
+.mkprint {
+  aspect-ratio: 7 / 9.6;
+  padding: 0.6rem;
+  background: var(--diep);
+  transform-origin: 50% 0;
+  transition: rotate 0.4s ease;
+}
+
+.mkcard:nth-child(3n + 1) .mkprint { rotate: -1.2deg; }
+.mkcard:nth-child(3n + 2) .mkprint { rotate: 0.8deg; }
+.mkcard:nth-child(3n) .mkprint { rotate: -0.5deg; }
+
+.mkcard:hover .mkprint {
+  rotate: 0deg;
+}
+
+.mkprint img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* the name is a paper label pasted over the bottom edge of the print */
+.mkname {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  max-width: calc(100% - 1.2rem);
+  margin: -1.3rem 0 0 0.9rem;
+  padding: 0.5rem 0.85rem 0.55rem;
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  box-shadow: 3px 3px 0 var(--red-600);
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-size: 0.95rem;
+  font-weight: 900;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--ink);
+  rotate: -0.8deg;
+}
+
+.mkname .vi {
+  margin-top: 0.15rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--red-600);
+}
+
+.mkname .say-line {
+  margin-top: 0.05rem;
+  font-family: var(--body);
+  font-variation-settings: normal;
+  font-weight: 400;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+
+.mktext {
+  margin-top: 0.9rem;
+  padding-inline: 0.2rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--cream-dim);
+}
+
+.mknote {
+  margin-top: 1.8rem;
+  font-size: 0.82rem;
+  color: var(--cream-dim);
+}
+
+.mkcredit {
+  margin-top: 0.3rem;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--cream-faint);
+}
+
+.mkcredit a,
+.mknote a {
+  color: var(--gold-200);
+  text-underline-offset: 0.18em;
+}
+
+/* how to tell Đông Hồ from Hàng Trống: two cards face to face */
+.compare {
+  margin-top: clamp(3.5rem, 8vw, 5.5rem);
+}
+
+.compare h3 {
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  color: var(--cream);
+}
+
+/* the pronunciation inside the big heading stays small */
+.compare h3 .say {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--cream-dim);
+}
+
+.compare .lede {
+  margin-top: 0.8rem;
+}
+
+/* Đông Hồ vs Hàng Trống: pick a question, both prints answer it side by side */
+.cmpx {
+  margin-top: 1.8rem;
+}
+
+.ctabs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.2rem 0.2rem 0.7rem;
+  scrollbar-width: thin;
+}
+
+.ctabs button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem 0.5rem 0.55rem;
+  border: 2px solid var(--gold-300);
+  border-radius: 999px;
+  background: none;
+  color: var(--cream);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.ctabs button b {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(240, 190, 107, 0.2);
+  font-family: var(--display);
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: var(--gold-300);
+}
+
+.ctabs button:hover {
+  background: rgba(240, 190, 107, 0.14);
+}
+
+.ctabs button[aria-selected="true"] {
+  background: var(--gold-300);
+  color: var(--ink);
+}
+
+.ctabs button[aria-selected="true"] b {
+  background: var(--ink);
+  color: var(--gold-300);
+}
+
+.cstage {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem clamp(1.6rem, 4vw, 3rem);
+  margin-top: 0.8rem;
+}
+
+.cpanel {
+  --accent: var(--red-600);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem 1.3rem;
+  border: 3px solid var(--ink);
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 var(--accent);
+}
+
+.cpanel.b {
+  --accent: #2f4e7a;
+}
+
+.cpanel header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  /* both headers are the same height, so the two pictures below line up */
+  min-height: 6.6rem;
+}
+
+.cpic {
+  flex: none;
+  width: 4.2rem;
+  padding: 0.2rem;
+  background: var(--diep);
+  box-shadow: 0 6px 10px -6px rgba(27, 12, 14, 0.6);
+}
+
+.cpanel.a .cpic { rotate: -2deg; }
+.cpanel.b .cpic { rotate: 2deg; }
+
+.cpic img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dueltag {
+  display: inline-block;
+  padding: 0.1rem 0.65rem 0.18rem;
+  background: var(--accent);
+  color: var(--cream);
+  font-family: var(--display);
+  font-variation-settings: "wdth" 112;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.duelcap {
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+/* the picture for the open question: same height on both sides so the two answers line up */
+.vz {
+  display: grid;
+  place-items: center;
+  height: 8.2rem;
+  border: 2px dashed rgba(27, 12, 14, 0.35);
+  background: var(--diep);
+}
+
+.vz-place {
+  gap: 0.2rem;
+  align-content: center;
+  grid-auto-flow: column;
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+.vz-place svg {
+  width: 2.4rem;
+  height: auto;
+}
+
+.vz-place b {
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+.vz-blocks {
+  grid-auto-flow: column;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.blockchip {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  box-shadow: 0 3px 0 #3a2113;
+}
+
+.blockchip i {
+  width: 1.5rem;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+}
+
+.brushdabs {
+  width: 7rem;
+  height: auto;
+}
+
+.vz-zoom {
+  background-repeat: no-repeat;
+  background-color: var(--diep);
+}
+
+.vz-sheets {
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: end;
+  gap: 1.2rem;
+  padding-bottom: 0.7rem;
+}
+
+.sheet-ref {
+  border: 2px dashed rgba(27, 12, 14, 0.4);
+}
+
+.sheet-main {
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--accent);
+  transition:
+    width 0.4s,
+    height 0.4s;
+}
+
+.vz-use svg {
+  width: 8rem;
+  height: auto;
+}
+
+.canswer {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* the seal where the two panels meet */
+.vs {
+  position: absolute;
+  left: 50%;
+  top: 7rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 3.1rem;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  rotate: -6deg;
+  background: var(--gold-300);
+  border: 3px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--display);
+  font-variation-settings: "wdth" 100;
+  font-size: 0.95rem;
+  font-weight: 900;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ───────── loading screen ───────── */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.4rem;
+  transition: opacity 0.5s ease;
+}
+
+.loader.leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ld-stage {
+  position: relative;
+  width: min(15rem, 56vw);
+  rotate: -2deg;
+}
+
+/* the stage is small, so the tape is too: one strip at each top corner */
+.ld-stage .tape {
+  width: 3.4rem;
+  height: 1.4rem;
+}
+
+.ld-stage .tape.a {
+  left: -0.4rem;
+}
+
+.ld-stage .tape.b {
+  right: -0.4rem;
+}
+
+.ld-sheet {
+  position: relative;
+  aspect-ratio: 440 / 520;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  box-shadow: 0 28px 40px -20px rgba(0, 0, 0, 0.75);
+}
+
+.ld-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* the colours are shown (not faded in by the .layer transition) unless the animation below drives them */
+.ld-art .layer {
+  transition: none;
+}
+
+.ld-block {
+  position: absolute;
+  inset: 4%;
+  z-index: 3;
+  border: 3px solid var(--ink);
+  background:
+    repeating-linear-gradient(100deg, rgba(0, 0, 0, 0.2) 0 1px, transparent 1px 6px),
+    linear-gradient(#9a6a43, #6c4326);
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.25);
+  opacity: 0;
+}
+
+.ld-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+  font-family: var(--display);
+  font-variation-settings: "wdth" 100;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.ld-brand b {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  background: var(--red-600);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  outline: 2px solid var(--red-600);
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 2px var(--red-600), inset 0 0 0 3px rgba(247, 239, 224, 0.75);
+  rotate: -4deg;
+}
+
+.ld-label {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--cream-dim);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ld-art > g.layer {
+    animation-duration: 3.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
+
+  .ld-art > g.layer:nth-of-type(1) { animation-name: ld-yellow; }
+  .ld-art > g.layer:nth-of-type(2) { animation-name: ld-red; }
+  .ld-art > g.layer:nth-of-type(3) { animation-name: ld-green; }
+  .ld-art > g.layer:nth-of-type(4) { animation-name: ld-indigo; }
+  .ld-art > g.layer:nth-of-type(5) { animation-name: ld-key; }
+
+  .ld-block {
+    animation: ld-press 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+
+  .ld-label {
+    animation: ld-breathe 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes ld-press {
+  0% { opacity: 1; translate: 0 -135%; }
+  4.4% { translate: 0 -135%; }
+  13.2% { translate: 0 0; }
+  18.5% { translate: 0 -135%; }
+  19.1% { translate: 0 -135%; }
+  27.9% { translate: 0 0; }
+  33.2% { translate: 0 -135%; }
+  33.8% { translate: 0 -135%; }
+  42.6% { translate: 0 0; }
+  47.9% { translate: 0 -135%; }
+  48.5% { translate: 0 -135%; }
+  57.4% { translate: 0 0; }
+  62.6% { translate: 0 -135%; }
+  63.2% { translate: 0 -135%; }
+  72.1% { translate: 0 0; }
+  77.4% { translate: 0 -135%; }
+  100% { opacity: 1; translate: 0 -135%; }
+}
+
+@keyframes ld-yellow {
+  0%, 15.6% { opacity: 0; }
+  19.1%, 93% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes ld-red {
+  0%, 30.3% { opacity: 0; }
+  33.8%, 93% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes ld-green {
+  0%, 45.0% { opacity: 0; }
+  48.5%, 93% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes ld-indigo {
+  0%, 59.7% { opacity: 0; }
+  63.2%, 93% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes ld-key {
+  0%, 74.4% { opacity: 0; }
+  77.9%, 93% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes ld-breathe {
+  50% { opacity: 0.45; }
+}
+
+/* ───────── motion ───────── */
+
+.petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.petals i {
+  position: absolute;
+  top: -8%;
+  border-radius: 80% 0 80% 0;
+  opacity: 0.55;
+}
+
+.petals i.gold {
+  background: var(--gold-300);
+}
+
+.petals i.red {
+  background: var(--red-500);
+}
+
+/* the SVG art is only animated when the visitor has not asked for reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  /* a new question: the two answers slide up into place */
+  .cstage .cpanel {
+    animation: answer 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  }
+
+  .cstage .cpanel.b {
+    animation-delay: 0.08s;
+  }
+
+  .blk.next {
+    animation: ready 1.4s ease-in-out infinite;
+  }
+
+  .hot.on .ring {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: spin 14s linear infinite;
+  }
+
+  /* ── the side prints hang from their tape and sway a little ── */
+  .print.side.l,
+  .print.side.r {
+    --r: 0deg;
+    rotate: var(--r);
+    transform-origin: 50% 0;
+    animation: swing 7s ease-in-out infinite alternate;
+  }
+
+  .print.side.l {
+    --r: -5deg;
+  }
+
+  .print.side.r {
+    --r: 4deg;
+    animation-delay: -3s;
+  }
+
+  .petals i {
+    animation: fall linear infinite;
+  }
+
+  /* ── section 07: the work at each step ── */
+  .sa-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: drawon 1.3s ease-out forwards;
+  }
+
+  .sa-draw.slow {
+    animation-duration: 2s;
+  }
+
+  .stepart [class^="sa-"],
+  .stepart [class*=" sa-"] {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .sa-chisel {
+    animation: chisel 7s linear infinite;
+  }
+
+  .sa-chip {
+    animation: chip 1.6s ease-out infinite;
+    opacity: 0;
+  }
+
+  .sa-wash {
+    transform-origin: 50% 0;
+    animation: wash 5s ease-in-out infinite;
+  }
+
+  .sa-brush-y {
+    animation: brushy 5s ease-in-out infinite;
+  }
+
+  .sa-brush-x {
+    animation: brushx 0.9s ease-in-out infinite alternate;
+  }
+
+  .sa-twinkle {
+    animation: twinkle 2.4s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  .sa-ripple {
+    animation: ripple 2.2s ease-out infinite;
+  }
+
+  /* ── the pictures themselves ── */
+  :where(.art) [class^="a-"],
+  :where(.art) [class*=" a-"] {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .a-spin {
+    animation: spin 18s linear infinite;
+  }
+
+  .a-spin.slow {
+    animation-duration: 40s;
+    animation-direction: reverse;
+  }
+
+  .a-pulse {
+    animation: pulse 3.6s ease-in-out infinite;
+  }
+
+  .a-drift {
+    animation: drift 11s ease-in-out infinite alternate;
+  }
+
+  .a-sway {
+    transform-origin: 50% 100%;
+    animation: sway 3.4s ease-in-out infinite alternate;
+  }
+
+  .a-wag {
+    transform-origin: 0% 100%;
+    animation: wag 2.2s ease-in-out infinite alternate;
+  }
+
+  .a-twitch {
+    transform-origin: 10% 100%;
+    animation: twitch 5.5s ease-in-out infinite;
+  }
+
+  .a-blink {
+    animation: blink 5s infinite;
+  }
+
+  /* tail feathers fan out from the rump */
+  .a-feather {
+    transform-origin: 0% 100%;
+    animation: feather 5s ease-in-out infinite alternate;
+  }
+
+  /* peck, peck, pause */
+  .a-peck {
+    transform-origin: 75% 100%;
+    animation: peck 6s ease-in-out infinite;
+  }
+}
+
+@keyframes ready {
+  50% {
+    translate: 0 -3px;
+    box-shadow: 0 7px 0 #3a2113;
+  }
+}
+
+@keyframes drawon {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes chisel {
+  0% { translate: 90px 120px; }
+  20% { translate: 310px 150px; }
+  40% { translate: 190px 270px; }
+  60% { translate: 330px 400px; }
+  80% { translate: 100px 390px; }
+  100% { translate: 90px 120px; }
+}
+
+@keyframes chip {
+  0% { opacity: 0; translate: 0 0; rotate: 0deg; }
+  15% { opacity: 1; }
+  100% { opacity: 0; translate: 16px -38px; rotate: 160deg; }
+}
+
+@keyframes wash {
+  0% { scale: 1 0; opacity: 0.85; }
+  70% { scale: 1 1; opacity: 0.85; }
+  92% { scale: 1 1; opacity: 0.85; }
+  100% { scale: 1 1; opacity: 0; }
+}
+
+@keyframes brushy {
+  0% { translate: 0 20px; opacity: 1; }
+  70% { translate: 0 520px; opacity: 1; }
+  80%, 100% { translate: 0 560px; opacity: 0; }
+}
+
+@keyframes brushx {
+  from { translate: 70px 0; rotate: -12deg; }
+  to { translate: 370px 0; rotate: 12deg; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; scale: 0.3; }
+  50% { opacity: 1; scale: 1; }
+}
+
+@keyframes ripple {
+  0% { scale: 0.4; opacity: 0.9; }
+  100% { scale: 1.9; opacity: 0; }
+}
+
+@keyframes answer {
+  from {
+    opacity: 0;
+    translate: 0 0.8rem;
+  }
+}
+
+@keyframes swing {
+  from { rotate: calc(var(--r) - 1.1deg); }
+  to { rotate: calc(var(--r) + 1.1deg); }
+}
+
+@keyframes fall {
+  from {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  50% {
+    translate: 28px 55vh;
+    rotate: 200deg;
+  }
+  to {
+    translate: -18px 115vh;
+    rotate: 420deg;
+  }
+}
+
+@keyframes spin {
+  to { rotate: 360deg; }
+}
+
+@keyframes pulse {
+  50% { scale: 1.07; }
+}
+
+@keyframes drift {
+  to { translate: 22px 0; }
+}
+
+@keyframes sway {
+  from { rotate: -4deg; }
+  to { rotate: 4deg; }
+}
+
+@keyframes wag {
+  from { rotate: -7deg; }
+  to { rotate: 9deg; }
+}
+
+@keyframes twitch {
+  0%, 82%, 100% { rotate: 0deg; }
+  86% { rotate: -11deg; }
+  90% { rotate: 3deg; }
+  94% { rotate: -6deg; }
+}
+
+@keyframes blink {
+  0%, 94%, 100% { scale: 1 1; }
+  97% { scale: 1 0.1; }
+}
+
+@keyframes feather {
+  from { rotate: -2.5deg; }
+  to { rotate: 3deg; }
+}
+
+@keyframes peck {
+  0%, 55%, 100% { rotate: 0deg; }
+  60% { rotate: -9deg; }
+  65% { rotate: 0deg; }
+  70% { rotate: -9deg; }
+  75% { rotate: 0deg; }
+  80% { rotate: -9deg; }
+  85% { rotate: 0deg; }
+}
+
+/* ── main sheet: title, lead, epigraph ── */
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.05em;
+  font-size: clamp(2.5rem, 6.8vw, 4.9rem);
+  line-height: 1.12;
+  color: var(--ink);
+  text-shadow: 3px 3px 0 var(--red-500);
+}
+
+/* the block is taller than the letters on purpose: the tone marks on capitals (Ồ) have to sit
+   inside the red, or the cream marks vanish against the cream paper */
+.title .redblock {
+  display: inline-block;
+  padding: 0.34em 0.24em 0.04em;
+  background: var(--red-600);
+  color: var(--cream);
+  line-height: 1;
+  text-shadow: none;
+  rotate: -1.2deg;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.subtitle {
+  text-wrap: balance;
+}
+
+.lead {
+  text-wrap: pretty;
+}
+
+.subtitle {
+  margin-top: 1.1rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.lead {
+  margin-top: 1.3rem;
+  padding-top: 1.2rem;
+  border-top: 2px solid var(--ink);
+  font-size: clamp(1.08rem, 1.7vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.epigraph {
+  margin-top: 1.5rem;
+}
+
+.epigraph blockquote {
+  padding-left: 1rem;
+  border-left: 4px solid var(--red-600);
+  font-style: italic;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.epigraph figcaption {
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.epigraph cite {
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* a quiet "keep scrolling" link, not a button: small text, a small round arrow */
+.cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.3rem;
+  padding: 0.2rem 0;
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red-600);
+  text-underline-offset: 0.45em;
+}
+
+.cue:hover {
+  color: var(--red-600);
+}
+
+.cue i {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--gold-300);
+  font-style: normal;
+  line-height: 0;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background 0.2s;
+}
+
+.cue:hover i {
+  background: var(--red-600);
+}
+
+.cue i svg {
+  display: block;
+  animation: nudge 2.2s ease-in-out infinite;
+}
+
+/* ───────── smaller screens ───────── */
+
+@media (max-width: 899px) {
+  .hero-wall {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .print.side {
+    display: none;
+  }
+
+  .seals {
+    inset: auto 0 0 0;
+    top: auto;
+    translate: 0 0;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(38px, 64px);
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 8px;
+    background: rgba(42, 3, 7, 0.92);
+    justify-items: center;
+  }
+
+  .seals em {
+    display: none;
+  }
+
+  .seals a.on {
+    translate: 0 -4px;
+  }
+
+  .brand span {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .table {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blocks {
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  }
+
+  .mixbox {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .makebox {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mpanel {
+    position: static;
+    order: -1;
+  }
+
+  .mpanel .sheetframe {
+    width: min(300px, 70%);
+  }
+
+  .events {
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  }
+
+  .preview {
+    position: static;
+    order: -1;
+  }
+
+  /* the sheet first, so the result is in view while the blocks are pressed */
+  .bench {
+    order: -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .reader {
+    gap: 0.7rem;
+    padding: 0.9rem;
+  }
+
+  .arrow {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .blocks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .blk {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 0.45rem 1.3rem 0.45rem 0.45rem;
+  }
+
+  .blk .face {
+    width: 2rem;
+  }
+
+  .blk b {
+    font-size: 0.66rem;
+  }
+
+  /* the pigment line is dropped on small screens, except the one that explains a locked block */
+  .blk small {
+    display: none;
+  }
+
+  .blk:disabled:not(.done) small {
+    display: block;
+    font-size: 0.64rem;
+  }
+
+  .bench {
+    padding: 1rem 0.8rem;
+  }
+
+  .sheetframe {
+    width: min(430px, 82%);
+  }
+}
+
+@media (max-width: 899px) {
+  .mkgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cstage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* stacked: the seal sits on the seam between the two cards */
+  .vs {
+    top: 50%;
+    translate: -50% -50%;
+  }
+
+  .endprints {
+    display: none;
+  }
+
+  .end-body {
+    padding-bottom: 2rem;
+  }
+
+  .thennow,
+  .oldblocks,
+  .twocol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .why-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sheetwrap {
+    position: static;
+  }
+
+  .sheetwrap .shimmer {
+    max-width: 22rem;
+    margin-inline: auto;
+  }
+
+  /* keep the last line clear of the bottom seal bar */
+  .site-foot {
+    padding-bottom: 5.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  /* a market stall you scroll along, one print at a time */
+  .mkgrid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: 74%;
+    gap: 1.2rem;
+    overflow-x: auto;
+    padding: 0.6rem 0.2rem 1rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .mkcard {
+    scroll-snap-align: start;
+  }
+
+  /* each card carries its own piece of string on the strip */
+  .mkcard::before,
+  .mkcard:nth-child(3n + 1)::before,
+  .mkcard:nth-child(3n)::before {
+    left: -0.6rem;
+    right: -0.6rem;
+  }
+
+  /* nine seals share the bar at the bottom: make them a little smaller */
+  .seals {
+    gap: 3px;
+    grid-auto-columns: minmax(0, 36px);
+  }
+
+  .seals a {
+    width: 30px;
+    height: 30px;
+  }
+
+  .seals i {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding-top: 4.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .suns i {
+    transition: none;
+  }
+
+  .flyblock {
+    display: none;
+  }
+
+  .layer {
+    transition: opacity 0.2s;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .cue i {
+    animation: none;
+  }
 }
