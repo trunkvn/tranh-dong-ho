@@ -14,6 +14,17 @@ export const vi: Dict = {
     title: "Tranh Đông Hồ — Đông Hồ Folk Prints",
     description:
       "Giới thiệu có minh hoạ về tranh khắc gỗ Đông Hồ, dòng tranh dân gian của Bắc Ninh, Việt Nam: giấy điệp, ván khắc, màu thiên nhiên và những gì còn lại của nghề.",
+    siteName: "Tranh Đông Hồ",
+    keywords: [
+      "tranh Đông Hồ",
+      "tranh dân gian",
+      "tranh khắc gỗ",
+      "Bắc Ninh",
+      "giấy điệp",
+      "tranh Tết",
+      "văn hoá Việt Nam",
+    ],
+    ogAlt: "Chú gà in bốn màu và nét đen trên giấy điệp",
   },
 
   loader: { label: "Đang in trang…" },

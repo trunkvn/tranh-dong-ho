@@ -13,6 +13,18 @@ export const en = {
     title: "Đông Hồ Folk Prints — Tranh Đông Hồ",
     description:
       "An illustrated guide to Đông Hồ woodblock prints, the folk art of Bắc Ninh, Vietnam, with Vietnamese terms and pronunciation guides.",
+    siteName: "Đông Hồ Folk Prints",
+    keywords: [
+      "Đông Hồ",
+      "Đông Hồ paintings",
+      "Vietnamese folk art",
+      "woodblock prints",
+      "Bắc Ninh",
+      "giấy điệp",
+      "Tết prints",
+      "Vietnamese culture",
+    ],
+    ogAlt: "A rooster printed in four colours and black, on a sheet of điệp paper",
   },
 
   loader: { label: "Printing the page…" },
