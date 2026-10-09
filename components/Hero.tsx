@@ -90,7 +90,7 @@ export function Hero({ t }: { t: Dict }) {
               </figcaption>
             </figure>
 
-            <a className="cue" href="#press">
+            <a className="cue" href="#make">
               <span>{t.hero.cue}</span>
               <i aria-hidden="true">
                 <svg viewBox="0 0 12 12" width="10" height="10">

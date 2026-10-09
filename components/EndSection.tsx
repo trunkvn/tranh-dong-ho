@@ -2,7 +2,7 @@ import { PigPrint } from "./art/PigPrint";
 import { RoosterPrint } from "./art/RoosterPrint";
 import type { Dict } from "@/lib/i18n";
 
-// 08 · Closing. Text from the dictionary. Our own words (the poem stays a small epigraph in the hero). The claim about families is
+// 09 · Closing. Text from the dictionary. Our own words (the poem stays a small epigraph in the hero). The claim about families is
 // the one reported in section 06: only a handful of families still practise the craft.
 
 export function EndSection({ t }: { t: Dict }) {

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Compare } from "./market/Compare";
 import type { Dict } from "@/lib/i18n";
 
-// 05 · The print market: six more Đông Hồ prints, then how to tell them from Hàng Trống prints.
+// 07 · The print market: six more Đông Hồ prints, then how to tell them from Hàng Trống prints.
 // The pictures are real prints in the public domain (Wikimedia Commons), so they are shown as they are;
 // each one links back to its Commons page. Descriptions and wishes follow the sources in the footer:
 //   Hứng dừa, Vinh hoa – Phú quý, Nhân nghĩa (Toplist); Đánh ghen (VinWonders: a lesson about parents' behaviour);
@@ -69,7 +69,7 @@ export function MarketSection({ t }: { t: Dict }) {
       <div className="wrap">
         <header className="dh">
           <span className="seal" aria-hidden="true">
-            05
+            07
           </span>
           <div>
             <p className="eyebrow">{m.eyebrow}</p>

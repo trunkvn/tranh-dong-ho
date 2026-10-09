@@ -2,7 +2,7 @@ import { BlockArt } from "./remain/BlockArt";
 import { ThenNow } from "./remain/ThenNow";
 import type { Dict } from "@/lib/i18n";
 
-// 06 · What remains. Text from the dictionary. Every figure and date comes from a named report (see Footer):
+// 08 · What remains. Text from the dictionary. Every figure and date comes from a named report (see Footer):
 //   - about 17 family lines and some 180 households once made prints; today 3 families, about 30
 //     people in 4 generations, after many turned to paper votive objects (Báo Văn hóa)
 //   - only two households in the village still keep the centuries-old carved blocks (Mekong ASEAN, 16 Feb 2026)
@@ -20,7 +20,7 @@ export function RemainSection({ t }: { t: Dict }) {
       <div className="wrap">
         <header className="dh">
           <span className="seal" aria-hidden="true">
-            07
+            08
           </span>
           <div>
             <p className="eyebrow">{r.eyebrow}</p>

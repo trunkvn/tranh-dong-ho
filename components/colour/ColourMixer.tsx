@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { C, INK } from "../art/woodcut";
 import { RoosterLayers, type Id } from "../press/RoosterLayers";
+import { PIG } from "../press/pigScene";
 import type { Ink } from "../press/roosterScene";
 import { fmt } from "@/lib/i18n/fmt";
 import type { Dict } from "@/lib/i18n";
 
-// 05 · Colour from nature. Pick where a colour comes from and the rooster changes.
+// 04 · Colour from nature. Pick where a colour comes from and the yin-yang pig changes (the rooster is printed in 05).
 //
 // Sources: "đen (than xoan hay than lá tre), xanh (gỉ đồng, lá chàm), vàng (hoa hòe), đỏ (sỏi son,
 // gỗ vang)" (Doanh nghiệp & Hội nhập); black from the ash of burnt bamboo leaves, and the yellow and
@@ -157,7 +158,7 @@ export function ColourMixer({ t }: { t: Dict["colour"]["mixer"] }) {
             role="img"
             aria-label={t.previewAria}
           >
-            <RoosterLayers done={ALL} paint={paint} spotlight={spot} />
+            <RoosterLayers scene={PIG} done={ALL} paint={paint} spotlight={spot} />
           </svg>
         </div>
         <p className="pcap" aria-live="polite">

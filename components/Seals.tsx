@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 // Labels come from the dictionary (dict.nav), so the column follows the page language.
 export const CHAPTERS = [
   { id: "top", no: "01" },
-  { id: "paper", no: "02" },
-  { id: "press", no: "03" },
-  { id: "read", no: "04" },
-  { id: "market", no: "05" },
-  { id: "colour", no: "06" },
-  { id: "remain", no: "07" },
-  { id: "make", no: "08" },
+  { id: "make", no: "02" },
+  { id: "paper", no: "03" },
+  { id: "colour", no: "04" },
+  { id: "press", no: "05" },
+  { id: "read", no: "06" },
+  { id: "market", no: "07" },
+  { id: "remain", no: "08" },
   { id: "end", no: "09" },
 ] as const;
 

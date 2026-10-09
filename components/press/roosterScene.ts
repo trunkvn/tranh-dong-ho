@@ -16,7 +16,10 @@ export type Shape = {
 };
 
 /** A line that only exists on the black block. `after` is the index of the shape it was drawn on top of. */
-export type Line = { d: string; w: number; after: number };
+export type Line = { d: string; w: number; after: number; dash?: string };
+
+/** A print taken apart into blocks: shapes back to front, lines on the black block, and round dots of black ink. */
+export type Scene = { shapes: Shape[]; lines: Line[]; dots: { cx: number; cy: number; r: number }[] };
 
 const circle = (cx: number, cy: number, r: number) => `M${cx - r} ${cy}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0Z`;
 
@@ -68,3 +71,5 @@ export const LINES: Line[] = [
 ];
 
 export const EYE = { cx: 148, cy: 148, r: 8 };
+
+export const ROOSTER: Scene = { shapes: SHAPES, lines: LINES, dots: [EYE] };

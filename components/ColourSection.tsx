@@ -1,7 +1,7 @@
 import { ColourMixer } from "./colour/ColourMixer";
 import type { Dict } from "@/lib/i18n";
 
-// 05 · Colour from nature. Text from the dictionary.
+// 04 · Colour from nature. Text from the dictionary.
 
 export function ColourSection({ t }: { t: Dict }) {
   return (
@@ -9,7 +9,7 @@ export function ColourSection({ t }: { t: Dict }) {
       <div className="wrap">
         <header className="dh">
           <span className="seal" aria-hidden="true">
-            06
+            04
           </span>
           <div>
             <p className="eyebrow">{t.colour.eyebrow}</p>

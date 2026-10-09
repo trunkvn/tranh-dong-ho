@@ -22,13 +22,13 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <LangSwitch lang={lang} t={t.switcher} />
       <main>
         <Hero t={t} />
+        <MakeSection t={t} />
         <PaperSection t={t} />
+        <ColourSection t={t} />
         <PressSection t={t} />
         <ReadSection t={t} />
         <MarketSection t={t} />
-        <ColourSection t={t} />
         <RemainSection t={t} />
-        <MakeSection t={t} />
         <EndSection t={t} />
       </main>
       <Footer t={t} />

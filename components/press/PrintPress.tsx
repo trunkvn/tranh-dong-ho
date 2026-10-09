@@ -6,7 +6,7 @@ import { COLOURS, RoosterLayers, type Id } from "./RoosterLayers";
 import { fmt } from "@/lib/i18n/fmt";
 import type { Dict } from "@/lib/i18n";
 
-// 03 · Printing a Gà đại cát. Text from the dictionary. Four colour blocks (any order) and the black outline block (always last).
+// 05 · Printing a Gà đại cát. Text from the dictionary. Four colour blocks (any order) and the black outline block (always last).
 // Facts used: each colour has its own woodblock; the black outline block is printed last; yellow is from
 // pagoda-tree flowers (hoa hòe), red from the soft red stone sỏi son, blue from indigo leaves (lá chàm),
 // black from the ash of burnt bamboo leaves.

@@ -13,26 +13,28 @@ The page is one long scroll in nine chapters, with a row of numbered seals on th
 | #   | Chapter             | What you can do                                                                                        |
 | --- | ------------------- | ------------------------------------------------------------------------------------------------------ |
 | 01  | Intro               | Meet the village, the two best-known prints and Hoàng Cầm's poem about them                            |
-| 02  | The paper           | Learn why the ground is *giấy điệp* (dó paper coated with powdered seashell) and why the colours seem to glow |
-| 03  | The printing        | Press four colour blocks and the black outline block, in any order, and watch the rooster appear. A switch lets the blocks slip out of register, as they do by hand |
-| 04  | Reading a print     | Read the wedding of the mice, panel by panel                                                           |
-| 05  | More prints         | Browse six more prints on a market stall, then compare an Đông Hồ print with one from Hàng Trống      |
-| 06  | Colour from nature  | Choose where each colour comes from (flowers, leaves, stone, shell) and see the rooster change         |
-| 07  | What remains        | See how much of the craft survives: figures from the reports made for UNESCO's file, with sources     |
-| 08  | The making          | Click through a print's making, from the first drawing to the finished sheet, with the waits in the sun |
+| 02  | The making          | Click through a print's making (drawing, carving, paper, colours, printing, drying), with the waits in the sun |
+| 03  | The paper           | Learn why the ground is *giấy điệp* (dó paper coated with powdered seashell) and why the colours seem to glow |
+| 04  | Colour from nature  | Choose where each colour comes from (flowers, leaves, stone, shell) and watch the yin-yang pig change  |
+| 05  | The printing        | Now that the paper and colours are known, press four colour blocks and the black outline block in any order and watch the rooster appear. A switch lets the blocks slip out of register, as they do by hand |
+| 06  | Reading a print     | Read the wedding of the mice, panel by panel                                                           |
+| 07  | More prints         | Browse six more prints on a market stall, then compare an Đông Hồ print with one from Hàng Trống      |
+| 08  | What remains        | See how much of the craft survives: figures from the reports made for UNESCO's file, with sources     |
 | 09  | Closing             | A short close                                                                                          |
 
-### Printing a picture
-
-![Chapter 03: the rooster after all five blocks have been pressed](docs/preview/press.jpg)
-
-### A market of prints
-
-![Chapter 05: prints hanging from a string, each held by a wooden peg](docs/preview/market.jpg)
+The order is deliberate: the overview of the making comes first, then the paper and the colours, so that pressing the woodblocks in chapter 05 means more.
 
 ### Colour from nature
 
-![Chapter 06: choosing the source of each colour](docs/preview/colour.jpg)
+![Chapter 04: choosing the source of each colour on the yin-yang pig](docs/preview/colour.jpg)
+
+### Printing a picture
+
+![Chapter 05: the rooster after all five blocks have been pressed](docs/preview/press.jpg)
+
+### A market of prints
+
+![Chapter 07: prints hanging from a string, each held by a wooden peg](docs/preview/market.jpg)
 
 ### On a phone
 
@@ -71,7 +73,7 @@ Set `NEXT_PUBLIC_SITE_URL` (for example `https://your-domain.example`) when you 
 app/[lang]/        page, layout and share image for /en and /vi
 components/        one component per chapter, plus Loader, Hero, Seals, LangSwitch
 components/art/    the woodblock-style SVG art (rooster, pig, wood texture)
-components/press/  the printing demo (chapter 03)
+components/press/  the printing demo (chapter 05) and the layered rooster and pig
 lib/i18n/          dictionaries (en, vi) and helpers
 public/prints/     photographs of historic prints
 docs/preview/      the screenshots in this README
@@ -79,7 +81,7 @@ docs/preview/      the screenshots in this README
 
 ## Credits
 
-- The photographs of historic prints in chapter 05 and the comparison are public domain, from [Wikimedia Commons](https://commons.wikimedia.org). Each one is credited on the page.
+- The photographs of historic prints in chapter 07 and the comparison are public domain, from [Wikimedia Commons](https://commons.wikimedia.org). Each one is credited on the page.
 - The epigraph is from Hoàng Cầm, *Bên kia sông Đuống* (1948).
 - The rooster and the pig are drawn in SVG in this repository (`components/art/`).
 

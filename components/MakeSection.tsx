@@ -1,7 +1,7 @@
 import { MakingFlow } from "./make/MakingFlow";
 import type { Dict } from "@/lib/i18n";
 
-// 07 · The whole making of a print. Text from the dictionary.
+// 02 · The whole making of a print. Text from the dictionary.
 
 export function MakeSection({ t }: { t: Dict }) {
   return (
@@ -9,7 +9,7 @@ export function MakeSection({ t }: { t: Dict }) {
       <div className="wrap">
         <header className="dh">
           <span className="seal" aria-hidden="true">
-            08
+            02
           </span>
           <div>
             <p className="eyebrow">{t.make.eyebrow}</p>

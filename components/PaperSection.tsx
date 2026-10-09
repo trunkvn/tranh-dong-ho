@@ -2,7 +2,7 @@ import { C, INK } from "./art/woodcut";
 import { Shimmer } from "./Shimmer";
 import type { Dict } from "@/lib/i18n";
 
-// 02 · Why giấy điệp. Text from the dictionary.
+// 03 · Why giấy điệp. Text from the dictionary.
 //
 // Facts: dó paper is made from dó bark; the coat is powdered seashell (điệp) mixed with a
 // sticky-rice paste; the shells are sea shells brought to the village; each colour has its own
@@ -25,7 +25,7 @@ export function PaperSection({ t }: { t: Dict }) {
         <div className="why-body">
           <header className="dh">
             <span className="seal" aria-hidden="true">
-              02
+              03
             </span>
             <div>
               <p className="eyebrow">{p.eyebrow}</p>

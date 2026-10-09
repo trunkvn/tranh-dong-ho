@@ -37,13 +37,13 @@ export const en = {
     aria: "Sections",
     items: {
       top: "Intro",
+      make: "The making",
       paper: "The paper",
+      colour: "Colour",
       press: "Printing",
       read: "Reading",
-      colour: "Colour",
       market: "The market",
       remain: "What remains",
-      make: "The making",
       end: "Closing",
     },
   },
@@ -179,7 +179,7 @@ export const en = {
         Printing a <em>picture</em>
       </>
     ),
-    lede: "Each colour has its own woodblock. The colour blocks go first and the black outline block always goes last. Press the blocks one by one to watch the rooster appear, then try slipping the blocks.",
+    lede: "Now the paper is ready and the colours are chosen. Each colour has its own woodblock. The colour blocks go first and the black outline block always goes last. Press the blocks one by one to watch the rooster appear, then try slipping the blocks.",
     app: {
       trayAria: "Woodblocks",
       trayLabel: "The woodblocks",
@@ -432,11 +432,11 @@ export const en = {
         Colour from <em>nature</em>
       </>
     ),
-    lede: "Every colour on a print comes from something real: a flower, a leaf, a stone, a shell. Some colours had more than one source. Choose where each one comes from and watch the rooster change.",
+    lede: "Every colour on a print comes from something real: a flower, a leaf, a stone, a shell. Some colours had more than one source. Choose where each one comes from and watch the pig change.",
     mixer: {
       groupAria: "Source of the {name}",
       howSummary: "How it's made",
-      previewAria: "The Rooster of Great Fortune print in the colours you chose",
+      previewAria: "The yin-yang pig print in the colours you chose",
       note: "Every pigment is blended with a little sticky-rice flour before it is printed. Click a colour's name to see only that block on the print.",
       caption:
         "Red from {red}, green from {green}. The shades are approximate: printers mixed their colours by hand, and every family had its own recipe.",

@@ -37,13 +37,13 @@ export const vi: Dict = {
     aria: "Các phần",
     items: {
       top: "Mở đầu",
+      make: "Cách làm",
       paper: "Giấy điệp",
+      colour: "Màu",
       press: "In tranh",
       read: "Đọc tranh",
-      colour: "Màu",
       market: "Chợ tranh",
       remain: "Còn lại",
-      make: "Cách làm",
       end: "Lời kết",
     },
   },
@@ -132,7 +132,7 @@ export const vi: Dict = {
         In một <em>bức tranh</em>
       </>
     ),
-    lede: "Mỗi màu một ván gỗ. Ván màu in trước, ván nét đen luôn in sau cùng. Bấm lần lượt từng ván để xem con gà hiện ra, rồi thử bật chế độ lệch ván.",
+    lede: "Giờ giấy đã sẵn và màu đã chọn xong. Mỗi màu một ván gỗ. Ván màu in trước, ván nét đen luôn in sau cùng. Bấm lần lượt từng ván để xem con gà hiện ra, rồi thử bật chế độ lệch ván.",
     app: {
       trayAria: "Các ván khắc",
       trayLabel: "Các ván khắc",
@@ -316,11 +316,11 @@ export const vi: Dict = {
         Màu từ <em>thiên nhiên</em>
       </>
     ),
-    lede: "Mỗi màu trên tranh đến từ một thứ có thật: một bông hoa, một chiếc lá, một viên đá, một chiếc vỏ sò. Có màu có hơn một nguồn. Hãy chọn nguồn của từng màu và xem con gà đổi sắc.",
+    lede: "Mỗi màu trên tranh đến từ một thứ có thật: một bông hoa, một chiếc lá, một viên đá, một chiếc vỏ sò. Có màu có hơn một nguồn. Hãy chọn nguồn của từng màu và xem con lợn đổi sắc.",
     mixer: {
       groupAria: "Nguồn của màu {name}",
       howSummary: "Cách làm",
-      previewAria: "Bức Gà đại cát trong những màu bạn đã chọn",
+      previewAria: "Bức Lợn âm dương trong những màu bạn đã chọn",
       note: "Mọi màu đều được hoà với một ít bột nếp trước khi in. Bấm vào tên một màu để chỉ xem ván màu đó trên tranh.",
       caption:
         "Màu đỏ từ {red}, màu xanh từ {green}. Sắc màu chỉ là gần đúng: thợ in tự pha màu bằng tay, và mỗi nhà một công thức.",

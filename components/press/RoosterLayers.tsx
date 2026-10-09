@@ -2,10 +2,10 @@
 
 import { useId } from "react";
 import { INK } from "../art/woodcut";
-import { EYE, LINES, SHAPES, type Ink } from "./roosterScene";
+import { ROOSTER, type Ink, type Scene } from "./roosterScene";
 
-// The rooster as printed blocks: four colour layers and the black key layer, drawn inside an <svg>
-// with viewBox "0 0 440 520". Shared by the printing demo (03) and the colour mixer (05).
+// A print as printed blocks (the rooster unless a scene is given): four colour layers and the black key layer,
+// drawn inside an <svg> with viewBox "0 0 440 520". Shared by the printing demo and the colour mixer.
 
 export type Id = Ink | "key";
 
@@ -21,9 +21,12 @@ type Props = {
   slip?: boolean;
   /** show one block at full strength and the other colours faded; "key" fades every colour */
   spotlight?: Ink | "key" | null;
+  /** the print to draw; the rooster by default */
+  scene?: Scene;
 };
 
-export function RoosterLayers({ done, paint, slip = false, spotlight = null }: Props) {
+export function RoosterLayers({ done, paint, slip = false, spotlight = null, scene = ROOSTER }: Props) {
+  const { shapes, lines, dots } = scene;
   // each instance gets its own mask ids, so two on one page never clash
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const mask = (i: number) => `url(#${uid}m${i})`;
@@ -32,10 +35,10 @@ export function RoosterLayers({ done, paint, slip = false, spotlight = null }: P
     <>
       <defs>
         {/* mask i hides everything that a later shape covers: no colour or line is printed under another */}
-        {SHAPES.map((_, i) => (
+        {shapes.map((_, i) => (
           <mask key={i} id={`${uid}m${i}`} maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="520">
             <rect width="440" height="520" fill="#fff" />
-            {SHAPES.slice(i + 1).map((s, j) => (
+            {shapes.slice(i + 1).map((s, j) => (
               <path key={j} d={s.d} fill="#000" />
             ))}
           </mask>
@@ -48,7 +51,7 @@ export function RoosterLayers({ done, paint, slip = false, spotlight = null }: P
           className={`layer${done.includes(ink) ? " on" : ""}${spotlight && spotlight !== ink ? " dim" : ""}`}
           style={slip ? { transform: `translate(${SLIP[ink][0]}px, ${SLIP[ink][1]}px)` } : undefined}
         >
-          {SHAPES.map((s, i) => (s.fill === ink ? <path key={i} d={s.d} fill={paint[ink]} mask={mask(i)} /> : null))}
+          {shapes.map((s, i) => (s.fill === ink ? <path key={i} d={s.d} fill={paint[ink]} mask={mask(i)} /> : null))}
         </g>
       ))}
 
@@ -60,13 +63,15 @@ export function RoosterLayers({ done, paint, slip = false, spotlight = null }: P
         strokeLinecap="round"
       >
         <rect x="21" y="21" width="398" height="478" strokeWidth="2.5" />
-        {SHAPES.map((s, i) => (
+        {shapes.map((s, i) => (
           <path key={i} d={s.d} strokeWidth={s.sw} mask={mask(i)} />
         ))}
-        {LINES.map((l, i) => (
-          <path key={i} d={l.d} strokeWidth={l.w} mask={mask(l.after)} />
+        {lines.map((l, i) => (
+          <path key={i} d={l.d} strokeWidth={l.w} strokeDasharray={l.dash} mask={mask(l.after)} />
         ))}
-        <circle cx={EYE.cx} cy={EYE.cy} r={EYE.r} fill={INK} stroke="none" />
+        {dots.map((d, i) => (
+          <circle key={i} cx={d.cx} cy={d.cy} r={d.r} fill={INK} stroke="none" />
+        ))}
       </g>
     </>
   );

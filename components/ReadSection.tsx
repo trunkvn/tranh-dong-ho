@@ -2,7 +2,7 @@ import { MiceWeddingArt } from "./read/MiceWeddingArt";
 import { MiceReader } from "./read/MiceReader";
 import type { Dict } from "@/lib/i18n";
 
-// 04 · Reading a print. Text from the dictionary.
+// 06 · Reading a print. Text from the dictionary.
 
 export function ReadSection({ t }: { t: Dict }) {
   return (
@@ -10,7 +10,7 @@ export function ReadSection({ t }: { t: Dict }) {
       <div className="wrap">
         <header className="dh">
           <span className="seal" aria-hidden="true">
-            04
+            06
           </span>
           <div>
             <p className="eyebrow">{t.read.eyebrow}</p>

@@ -1,7 +1,7 @@
 import { PrintPress } from "./press/PrintPress";
 import type { Dict } from "@/lib/i18n";
 
-// 03 · Printing a picture. Text from the dictionary.
+// 05 · Printing a picture. Text from the dictionary.
 
 export function PressSection({ t }: { t: Dict }) {
   return (
@@ -9,7 +9,7 @@ export function PressSection({ t }: { t: Dict }) {
       <div className="wrap">
         <header className="dh">
           <span className="seal" aria-hidden="true">
-            03
+            05
           </span>
           <div>
             <p className="eyebrow">{t.press.eyebrow}</p>
